@@ -5,7 +5,7 @@
 
 template<typename T>
 class TPQueue {
-public:
+ public:
   TPQueue() :head(nullptr), tail(nullptr) {}
   ~TPQueue() {
     while (head)
@@ -48,7 +48,7 @@ public:
     return *temp;
   }
 
-private:
+ private:
   T *head;
   T *tail;
 };

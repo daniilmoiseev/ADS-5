@@ -56,14 +56,6 @@ class TPQueue {
     head = head->next;
     return temp->data;
   }
-  void print() {
-    ITEM *t = head;
-    while (t) {
-      std::cout << t->data.ch << " ";
-      t = t->next;
-    }
-    std::cout << '\n';
-  }
 };
 
 struct SYM {

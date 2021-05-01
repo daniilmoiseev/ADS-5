@@ -5,6 +5,15 @@
 
 template<typename T>
 class TPQueue {
+  struct ITEM {
+    T data;
+    ITEM *next;
+  };
+
+ private:
+  ITEM *head;
+  ITEM *tail;
+
  public:
   TPQueue() :head(nullptr), tail(nullptr) {}
   ~TPQueue() {
@@ -13,18 +22,18 @@ class TPQueue {
   }
 
   void push(const T &item) {
-    T *t = new T;
-    t->ch = item.ch;
-    t->prior = item.prior;
+    ITEM *t = new ITEM;
+    t->data = item;
     t->next = nullptr;
+
     if (tail && head) {
-      T *temp = head;
-      if (temp->prior < t->prior) {
+      ITEM *temp = head;
+      if (temp->data.prior < t->data.prior) {
         t->next = temp;
         head = t;
       } else {
         while (temp->next) {
-          if (temp->next->prior < t->prior) {
+          if (temp->next->data.prior < t->data.prior) {
             t->next = temp->next;
             temp->next = t;
             break;
@@ -43,20 +52,23 @@ class TPQueue {
     }
   }
   T pop() {
-    T *temp = head;
+    ITEM *temp = head;
     head = head->next;
-    return *temp;
+    return temp->data;
   }
-
- private:
-  T *head;
-  T *tail;
+  void print() {
+    ITEM *t = head;
+    while (t) {
+      std::cout << t->data.ch << " ";
+      t = t->next;
+    }
+    std::cout << '\n';
+  }
 };
 
 struct SYM {
   char ch;
   int prior;
-  SYM *next;
 };
 
 #endif // INCLUDE_TPQUEUE_H_

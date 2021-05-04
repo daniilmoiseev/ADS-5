@@ -27,18 +27,16 @@ class TPQueue {
       pop();
   }
 
-  void push(const T &item) {
-    ITEM *t = create(item);
-
+  void push(const T &data) {
     if (tail && head) {
       ITEM *temp = head;
-      if (temp->data.prior < t->data.prior) {
+      if (temp->data.prior < data.prior) {
         temp = create(data);
         temp->next = head;
         head = temp;
       } else {
         while (temp->next) {
-          if (temp->next->data.prior < t->data.prior) {
+          if (temp->next->data.prior < data.prior) {
             ITEM *t = create(data);
             t->next = temp->next;
             temp->next = t;

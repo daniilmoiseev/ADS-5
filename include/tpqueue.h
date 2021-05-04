@@ -19,7 +19,7 @@ class TPQueue {
     t->next = nullptr;
     return t;
   }
-  
+
  public:
   TPQueue() :head(nullptr), tail(nullptr) {}
   ~TPQueue() {
@@ -28,19 +28,18 @@ class TPQueue {
   }
 
   void push(const T &item) {
-    //ITEM *t = new ITEM;
-    //t->data = item;
-    //t->next = nullptr;
     ITEM *t = create(item);
-    
+
     if (tail && head) {
       ITEM *temp = head;
       if (temp->data.prior < t->data.prior) {
-        t->next = temp;
-        head = t;
+        temp = create(data);
+        temp->next = head;
+        head = temp;
       } else {
         while (temp->next) {
           if (temp->next->data.prior < t->data.prior) {
+            ITEM *t = create(data);
             t->next = temp->next;
             temp->next = t;
             break;
@@ -50,18 +49,20 @@ class TPQueue {
         }
       }
       if (!temp->next) {
-        tail->next = t;
+        tail->next = create(data);
         tail = tail->next;
       }
     } else {
-      head = t;
+      head = create(data);
       tail = head;
     }
   }
   T pop() {
-    ITEM *temp = head;
-    head = head->next;
-    return temp->data;
+    ITEM *temp = head->next;
+    T data = head->data;
+    delete head;
+    head = temp;
+    return data;
   }
 };
 

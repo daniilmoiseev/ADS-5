@@ -13,7 +13,13 @@ class TPQueue {
  private:
   ITEM *head;
   ITEM *tail;
-
+  ITEM *create(T data) {
+    ITEM *t = new ITEM;
+    t->data = data;
+    t->next = nullptr;
+    return t;
+  }
+  
  public:
   TPQueue() :head(nullptr), tail(nullptr) {}
   ~TPQueue() {
@@ -22,10 +28,11 @@ class TPQueue {
   }
 
   void push(const T &item) {
-    ITEM *t = new ITEM;
-    t->data = item;
-    t->next = nullptr;
-
+    //ITEM *t = new ITEM;
+    //t->data = item;
+    //t->next = nullptr;
+    ITEM *t = create(item);
+    
     if (tail && head) {
       ITEM *temp = head;
       if (temp->data.prior < t->data.prior) {
